@@ -2,6 +2,7 @@ const initialState = {
   dataList: [],
   kategoriList: [],
   branchList: [],
+  detailData: [],
   isLoading: false,
   isFulfielled: false,
   isRejected: false
@@ -52,20 +53,40 @@ const categoryList = (state = initialState, action) => {
         isFulfielled: true,
         dataList: action.payload.data
       };
-    case "POST_CATEGORY_PENDING":
+    case "GET_BRANCH_PENDING":
       return {
         ...state,
         isLoading: true,
         isRejected: false,
         isFulfielled: false
       };
-    case "POST_CATEGORY_REJECTED":
+    case "GET_BRANCH_REJECTED":
       return {
         ...state,
         isLoading: false,
         isRejected: true
       };
-    case "POST_CATEGORY_FULFILLED":
+    case "GET_BRANCH_FULFILLED":
+      return {
+        ...state,
+        isLoading: false,
+        isFulfielled: true,
+        branchList: action.payload.data
+      };
+    case "POST_DATA_PENDING":
+      return {
+        ...state,
+        isLoading: true,
+        isRejected: false,
+        isFulfielled: false
+      };
+    case "POST_DATA_REJECTED":
+      return {
+        ...state,
+        isLoading: false,
+        isRejected: true
+      };
+    case "POST_DATA_FULFILLED":
       return {
         ...state,
         isLoading: false,
@@ -86,6 +107,26 @@ const categoryList = (state = initialState, action) => {
         isRejected: true
       };
     case "GET_DETAIL_FULFILLED":
+      return {
+        ...state,
+        isLoading: false,
+        isFulfielled: true,
+        detailData: action.payload.data
+      };
+    case "PATCH_ITEM_PENDING":
+      return {
+        ...state,
+        isLoading: true,
+        isRejected: false,
+        isFulfielled: false
+      };
+    case "PATCH_ITEM_REJECTED":
+      return {
+        ...state,
+        isLoading: false,
+        isRejected: true
+      };
+    case "PATCH_ITEM_FULFILLED":
       return {
         ...state,
         isLoading: false,

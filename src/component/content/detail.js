@@ -3,6 +3,7 @@ import { deleteDetail } from "../../Publics/Redux/Actions/detail";
 import { Redirect, Link } from "react-router-dom";
 import { async } from "q";
 import Axios from "axios";
+import Modal from "../modal/modalEdit";
 
 class detail extends React.Component {
   deleteItem = () => {
@@ -36,7 +37,14 @@ class detail extends React.Component {
                 <h2>{this.props.data.name}</h2>
               </div>
               <div className="col-md-6 text-right mt-2">
-                <button class="badge badge-secondary ">Secondary</button>
+                <button
+                  className="badge badge-secondary"
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#edit"
+                >
+                  Edit data
+                </button>
                 <Link to={`/`}>
                   <button
                     class="badge badge-danger ml-2"
@@ -100,6 +108,7 @@ class detail extends React.Component {
             {/****************** END STATUS ************************/}
           </div>
         </div>
+        <Modal />
       </>
     );
   }

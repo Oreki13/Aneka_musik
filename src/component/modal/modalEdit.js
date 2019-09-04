@@ -50,16 +50,16 @@ class modalAdd extends Component {
   };
 
   render() {
-    const kategori = this.props.dataPro.kategori.result;
-    const branch = this.props.dataPro.branch.result;
-    console.log(kategori);
-    console.log(branch);
-    console.log(this.state);
+    // const kategori = this.props.dataPro.kategori.result;
+    // const branch = this.props.dataPro.branch.result;
+    // console.log(kategori);
+    // console.log(branch);
+    // console.log(this.state);
 
     return (
       <div
         className="modal fade"
-        id="addItem"
+        id="edit"
         tabIndex="-1"
         role="dialog"
         aria-labelledby="exampleModalLabel"
@@ -105,11 +105,11 @@ class modalAdd extends Component {
                       className="form-control"
                       onChange={this.isiCategory}
                     >
-                      {kategori.map(ket => {
+                      {/* {kategori.map(ket => {
                         return (
                           <option value={ket.id_kategori}>{ket.name}</option>
                         );
-                      })}
+                      })} */}
                     </select>
                   </div>
                 </div>
@@ -120,9 +120,9 @@ class modalAdd extends Component {
                   </label>
                   <div className="col-sm-6">
                     <select className="form-control" onChange={this.isiBranch}>
-                      {branch.map(ket => {
+                      {/* {branch.map(ket => {
                         return <option value={ket.id}>{ket.name}</option>;
-                      })}
+                      })} */}
                     </select>
                   </div>
                 </div>

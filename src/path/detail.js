@@ -9,7 +9,7 @@ import Content from "../component/content/detail";
 
 class detail extends Component {
   state = {
-    dataDetail: [],
+    detail: [],
     param: {
       params: {
         id: this.props.match.params.id
@@ -20,12 +20,12 @@ class detail extends Component {
   componentDidMount = async () => {
     await this.props.dispatch(getDetail(this.state.param));
     this.setState({
-      dataDetail: this.props.data.dataList
+      detail: this.props.data.detailData
     });
   };
   render() {
-    const { dataDetail } = this.state;
-    // console.log(dataDetail);
+    const { detail } = this.state;
+    console.log(this.props.data);
 
     return (
       <div>
@@ -33,11 +33,11 @@ class detail extends Component {
 
         {/******************* Begin Content ****************************/}
 
-        {dataDetail.length === 0 ? (
+        {detail.length === 0 ? (
           <p>Welcome</p>
         ) : (
           <div className="container my-5 ">
-            {dataDetail.result.map((category, index) => {
+            {detail.result.map((category, index) => {
               return <Content data={category} deleted={this.deleteItem} />;
             })}
           </div>
