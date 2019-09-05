@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const item = props => {
+  console.log(props);
+
   return (
     <div
       className="card mb-3 mr-4 shadow "

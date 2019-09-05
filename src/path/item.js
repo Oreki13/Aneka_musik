@@ -10,7 +10,6 @@ import Footer from "../component/footer/footer";
 import "../component/CSS/search.css";
 import Content from "../component/content/itemList";
 import Modal from "../component/modal/modalItem";
-import { async } from "q";
 
 class item extends Component {
   state = {
@@ -30,17 +29,23 @@ class item extends Component {
     this.setState({
       dataItem: this.props.data.dataList
     });
-    await this.props.dispatch(getCategory());
-    this.setState({
-      kategori: this.props.data.kategoriList
-    });
   };
 
-  reGet = async () => {
-    await this.props.dispatch(getCategory());
-    this.setState({
-      kategori: this.props.data.kategoriList
-    });
+  // reGet = async () => {
+  //   await this.props.dispatch(getCategory());
+  //   this.setState({
+  //     kategori: this.props.data.kategoriList
+  //   });
+  // };
+  searchInput = e => {
+    let key = e.target.value;
+    this.setState({ tmpSearch: key });
+  };
+
+  searchGo = key => {
+    if (key.charCode == 13) {
+      window.location.href = `http://localhost:3000/search/${this.state.tmpSearch}`;
+    }
   };
 
   showModal = async () => {
@@ -59,10 +64,69 @@ class item extends Component {
     console.log(this.state.dataItem);
     console.log(this.state.branch);
     if (this.state.modal == false) {
-      console.log(
-        "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
-      );
+      return (
+        <div>
+          <Navbar />
+          {/*********** Begin Search ************/}
+          <div className="container mt-2 d-flex ">
+            <div className="search-box shadow">
+              <input
+                className="search-txt "
+                type="text"
+                onChange={this.searchInput}
+                onKeyPress={this.searchGo}
+                placeholder="Search"
+              />
+              <a className="search-btn">
+                <i className="fas fa-search"></i>
+              </a>
+            </div>
+            <div className="seting shadow">
+              <a className="seting-btn">
+                <i className="fas fa-cog"></i>
+              </a>
+            </div>
+          </div>
+          {/************************* TOMBOL ADD *****************************/}
+          <div className="container">
+            <button
+              style={{ background: "#e28935", borderRadius: "10px" }}
+              type="button"
+              className="btn mt-3 shadow"
+              data-toggle="modal"
+              data-target="#addItem"
+              onClick={this.showModal}
+            >
+              Add Item
+            </button>
+          </div>
+          {/******************* Begin Content ****************************/}
 
+          {dataItem.length === 0 ? (
+            <div className="container mt-4">
+              <div className="alert alert-danger" role="alert">
+                <h4 className="alert-heading">Data Not Found!!</h4>
+                <p>Aww yeah, data gak ketemu!!</p>
+              </div>
+            </div>
+          ) : (
+            <div className="container mt-4 d-flex flex-wrap">
+              {dataItem.result.map((category, index) => {
+                return (
+                  <Content
+                    name={category.name}
+                    img={category.img}
+                    id={category.id}
+                  />
+                );
+              })}
+            </div>
+          )}
+          {/*********************** End Content *************************/}
+          <Footer />
+        </div>
+      );
+    } else {
       return (
         <div>
           <Navbar />
@@ -101,70 +165,12 @@ class item extends Component {
           {/******************* Begin Content ****************************/}
 
           {dataItem.length === 0 ? (
-            setTimeout(function() {
-              "Data Not Found";
-            }, 2000)
-          ) : (
-            <div className="container mt-4 d-flex flex-wrap">
-              {dataItem.result.map((category, index) => {
-                return (
-                  <Content
-                    name={category.name}
-                    img={category.img}
-                    id={category.id}
-                  />
-                );
-              })}
+            <div className="container mt-4">
+              <div className="alert alert-danger" role="alert">
+                <h4 className="alert-heading">Data Not Found!!</h4>
+                <p>Aww yeah, data gak ketemu!!</p>
+              </div>
             </div>
-          )}
-          {/*********************** End Content *************************/}
-          <Footer />
-        </div>
-      );
-    } else {
-      console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
-
-      return (
-        <div>
-          <Navbar />
-          {/*********** Begin Search ************/}
-          <div className="container mt-2 d-flex ">
-            <div className="search-box shadow">
-              <input
-                className="search-txt "
-                type="text"
-                name=""
-                placeholder="Search"
-              />
-              <a className="search-btn">
-                <i className="fas fa-search"></i>
-              </a>
-            </div>
-            <div className="seting shadow">
-              <a className="seting-btn">
-                <i className="fas fa-cog"></i>
-              </a>
-            </div>
-          </div>
-          {/************************* TOMBOL ADD *****************************/}
-          <div className="container">
-            <button
-              style={{ background: "#e28935", borderRadius: "10px" }}
-              type="button"
-              className="btn mt-3 shadow"
-              data-toggle="modal"
-              data-target="#addItem"
-              onClick={this.reGet}
-            >
-              Add Item
-            </button>
-          </div>
-          {/******************* Begin Content ****************************/}
-
-          {dataItem.length === 0 ? (
-            setTimeout(function() {
-              "Data Not Found";
-            }, 2000)
           ) : (
             <div className="container mt-4 d-flex flex-wrap">
               {dataItem.result.map((category, index) => {

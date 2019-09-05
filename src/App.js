@@ -7,6 +7,7 @@ import category from "./path/category";
 import item from "./path/item";
 import store from "./Publics/Redux/store";
 import detail from "./path/detail";
+import search from "./path/search";
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route exact path="/" component={category} />
         <Route path="/item/:name" component={item} />
         <Route path="/detail/:id" component={detail} />
+        <Route path="/search/:name" component={search} />
       </Router>
     </Provider>
   );

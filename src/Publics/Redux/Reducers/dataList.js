@@ -3,6 +3,7 @@ const initialState = {
   kategoriList: [],
   branchList: [],
   detailData: [],
+  dataSearch: [],
   isLoading: false,
   isFulfielled: false,
   isRejected: false
@@ -52,6 +53,26 @@ const categoryList = (state = initialState, action) => {
         isLoading: false,
         isFulfielled: true,
         dataList: action.payload.data
+      };
+    case "GET_SEARCH_PENDING":
+      return {
+        ...state,
+        isLoading: true,
+        isRejected: false,
+        isFulfielled: false
+      };
+    case "GET_SEARCH_REJECTED":
+      return {
+        ...state,
+        isLoading: false,
+        isRejected: true
+      };
+    case "GET_SEARCH_FULFILLED":
+      return {
+        ...state,
+        isLoading: false,
+        isFulfielled: true,
+        dataSearch: action.payload.data
       };
     case "GET_BRANCH_PENDING":
       return {
@@ -130,8 +151,7 @@ const categoryList = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        isFulfielled: true,
-        dataList: action.payload.data
+        isFulfielled: true
       };
 
     default:

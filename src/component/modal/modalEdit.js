@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import { postItem } from "../../Publics/Redux/Actions/postItem";
+import Axios from "axios";
+import { editItem } from "../../Publics/Redux/Actions/patch";
 class modalAdd extends Component {
   state = {
     name: "",
-    quantity: "",
-    price: "",
+    quantity: 0,
+    price: 0,
     detail: "",
     img: "",
-    id_branch: "",
-    id_kategori: ""
+    id_branch: 0,
+    id_kategori: 0
   };
 
   isiName = e => {
@@ -46,15 +47,32 @@ class modalAdd extends Component {
     this.setState({ detail: type });
   };
   input = () => {
-    this.props.dispatch(postItem(this.state));
+    const isID = { ...this.props.dataEdit.detail.result };
+    const id = isID[0].id;
+    this.props.dispatch(editItem(id, this.state));
+  };
+  componentDidMount = () => {
+    const isdetail = { ...this.props.dataEdit.detail.result };
+
+    this.setState({
+      name: isdetail[0].name,
+      quantity: isdetail[0].quantity,
+      price: isdetail[0].price,
+      detail: isdetail[0].detail,
+      img: isdetail[0].img,
+      id_branch: isdetail[0].id_branch,
+      id_kategori: isdetail[0].id_kategori
+    });
   };
 
   render() {
-    // const kategori = this.props.dataPro.kategori.result;
-    // const branch = this.props.dataPro.branch.result;
-    // console.log(kategori);
-    // console.log(branch);
-    // console.log(this.state);
+    const kategori = this.props.dataEdit.kategori.result;
+    const branch = this.props.dataEdit.branch.result;
+    console.log(kategori);
+    console.log(branch);
+    const isdetail = { ...this.props.dataEdit.detail.result };
+    console.log(isdetail[0]);
+    console.log(this.state);
 
     return (
       <div
@@ -68,7 +86,7 @@ class modalAdd extends Component {
         <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Add Item</h5>
+              <h5 className="modal-title">Edit Item</h5>
               <button
                 type="button"
                 className="close"
@@ -87,11 +105,11 @@ class modalAdd extends Component {
 
                   <div className="col-sm-9">
                     <input
-                      required={true}
                       onChange={this.isiName}
                       type="text"
                       className="form-control"
                       id="name"
+                      placeholder={isdetail[0].name}
                     />
                   </div>
                 </div>
@@ -105,11 +123,19 @@ class modalAdd extends Component {
                       className="form-control"
                       onChange={this.isiCategory}
                     >
-                      {/* {kategori.map(ket => {
-                        return (
-                          <option value={ket.id_kategori}>{ket.name}</option>
-                        );
-                      })} */}
+                      {kategori.map(ket => {
+                        if (ket.name == isdetail[0].kategori) {
+                          return (
+                            <option value={ket.id_kategori} selected>
+                              {ket.name}
+                            </option>
+                          );
+                        } else {
+                          return (
+                            <option value={ket.id_kategori}>{ket.name}</option>
+                          );
+                        }
+                      })}
                     </select>
                   </div>
                 </div>
@@ -120,9 +146,17 @@ class modalAdd extends Component {
                   </label>
                   <div className="col-sm-6">
                     <select className="form-control" onChange={this.isiBranch}>
-                      {/* {branch.map(ket => {
-                        return <option value={ket.id}>{ket.name}</option>;
-                      })} */}
+                      {branch.map(ket => {
+                        if (ket.name == isdetail[0].branch) {
+                          return (
+                            <option value={ket.id} selected>
+                              {ket.name}
+                            </option>
+                          );
+                        } else {
+                          return <option value={ket.id}>{ket.name}</option>;
+                        }
+                      })}
                     </select>
                   </div>
                 </div>
@@ -133,11 +167,11 @@ class modalAdd extends Component {
                   </label>
                   <div className="col-sm-9">
                     <input
-                      required={true}
                       onChange={this.isiQty}
                       type="text"
                       className="form-control"
                       id="name"
+                      placeholder={isdetail[0].quantity}
                     />
                   </div>
                 </div>
@@ -148,11 +182,11 @@ class modalAdd extends Component {
                   </label>
                   <div className="col-sm-9">
                     <input
-                      required={true}
                       onChange={this.isiPrice}
                       type="text"
                       className="form-control"
                       id="name"
+                      placeholder={isdetail[0].price}
                     />
                   </div>
                 </div>
@@ -163,11 +197,11 @@ class modalAdd extends Component {
                   </label>
                   <div className="col-sm-9">
                     <input
-                      required={true}
                       onChange={this.isiImg}
                       type="text"
                       className="form-control"
                       id="name"
+                      placeholder={isdetail[0].img}
                     />
                   </div>
                 </div>
@@ -182,6 +216,7 @@ class modalAdd extends Component {
                       className="form-control"
                       id="exampleFormControlTextarea1"
                       rows="3"
+                      placeholder={isdetail[0].detail}
                     ></textarea>
                   </div>
                 </div>
@@ -192,7 +227,7 @@ class modalAdd extends Component {
                   type="submit"
                   className="btn btn-primary"
                 >
-                  Add
+                  Edit
                 </button>
               </div>
             </form>

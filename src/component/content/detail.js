@@ -1,11 +1,15 @@
 import React from "react";
-import { deleteDetail } from "../../Publics/Redux/Actions/detail";
-import { Redirect, Link } from "react-router-dom";
-import { async } from "q";
+
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
 import Axios from "axios";
-import Modal from "../modal/modalEdit";
 
 class detail extends React.Component {
+  state = {
+    itemEdit: []
+  };
+
   deleteItem = () => {
     // await this.props.dispatch(deleteDetail(this.props.data.id));
     Axios.delete(`http://localhost:8080/store/${this.props.data.id}`);
@@ -13,7 +17,10 @@ class detail extends React.Component {
 
     // console.log(window.history.back(-1));
   };
+
   render() {
+    console.log(this.props.data);
+
     return (
       <>
         <div className="row">
@@ -37,20 +44,12 @@ class detail extends React.Component {
                 <h2>{this.props.data.name}</h2>
               </div>
               <div className="col-md-6 text-right mt-2">
-                <button
-                  className="badge badge-secondary"
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#edit"
-                >
-                  Edit data
-                </button>
                 <Link to={`/`}>
                   <button
                     class="badge badge-danger ml-2"
                     onClick={this.deleteItem}
                   >
-                    Danger
+                    Delete
                   </button>
                 </Link>
               </div>
@@ -108,7 +107,6 @@ class detail extends React.Component {
             {/****************** END STATUS ************************/}
           </div>
         </div>
-        <Modal />
       </>
     );
   }

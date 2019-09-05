@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getDetail, deleteDetail } from "../Publics/Redux/Actions/detail";
+import { getCategory } from "../Publics/Redux/Actions/categoryList";
+import { getBranch } from "../Publics/Redux/Actions/branch";
 import Navbar from "../component/navbar/navbar";
 import Footer from "../component/footer/footer";
 import "../component/CSS/search.css";
 import Content from "../component/content/detail";
+import Modal from "../component/modal/modalEdit";
 
 class detail extends Component {
   state = {
@@ -14,7 +17,10 @@ class detail extends Component {
       params: {
         id: this.props.match.params.id
       }
-    }
+    },
+    kategori: [],
+    branch: [],
+    modal: false
   };
 
   componentDidMount = async () => {
@@ -23,29 +29,84 @@ class detail extends Component {
       detail: this.props.data.detailData
     });
   };
+
+  showModal = async () => {
+    await this.props.dispatch(getCategory());
+    await this.props.dispatch(getBranch());
+    this.setState({
+      kategori: this.props.data.kategoriList,
+      branch: this.props.data.branchList,
+      modal: true
+    });
+  };
+
   render() {
     const { detail } = this.state;
-    console.log(this.props.data);
+    console.log(this.state);
 
-    return (
-      <div>
-        <Navbar />
-
-        {/******************* Begin Content ****************************/}
-
-        {detail.length === 0 ? (
-          <p>Welcome</p>
-        ) : (
-          <div className="container my-5 ">
-            {detail.result.map((category, index) => {
-              return <Content data={category} deleted={this.deleteItem} />;
-            })}
+    if (this.state.modal == false) {
+      return (
+        <div>
+          <Navbar />
+          <div className="container text-right mt-4">
+            <button
+              className="badge badge-secondary"
+              type="button"
+              data-toggle="modal"
+              data-target="#edit"
+              onClick={this.showModal}
+            >
+              Edit data
+            </button>
           </div>
-        )}
-        {/*********************** End Content *************************/}
-        <Footer />
-      </div>
-    );
+
+          {/******************* Begin Content ****************************/}
+
+          {detail.length === 0 ? (
+            <p>Data Not Found</p>
+          ) : (
+            <div className="container mt-1 mb-5 ">
+              {detail.result.map((category, index) => {
+                return <Content data={category} deleted={this.deleteItem} />;
+              })}
+            </div>
+          )}
+          {/*********************** End Content *************************/}
+          <Footer />
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <Navbar />
+          <div className="container text-right mt-4">
+            <button
+              className="badge badge-secondary"
+              type="button"
+              data-toggle="modal"
+              data-target="#edit"
+            >
+              Edit data
+            </button>
+          </div>
+
+          {/******************* Begin Content ****************************/}
+
+          {detail.length === 0 ? (
+            <p>Data Not Found</p>
+          ) : (
+            <div className="container mt-1 mb-5 ">
+              {detail.result.map((category, index) => {
+                return <Content data={category} deleted={this.deleteItem} />;
+              })}
+            </div>
+          )}
+          {/*********************** End Content *************************/}
+          <Footer />
+          <Modal dataEdit={this.state} />
+        </div>
+      );
+    }
   }
 }
 
