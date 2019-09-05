@@ -31,12 +31,6 @@ class item extends Component {
     });
   };
 
-  // reGet = async () => {
-  //   await this.props.dispatch(getCategory());
-  //   this.setState({
-  //     kategori: this.props.data.kategoriList
-  //   });
-  // };
   searchInput = e => {
     let key = e.target.value;
     this.setState({ tmpSearch: key });
@@ -60,9 +54,7 @@ class item extends Component {
 
   render() {
     const { dataItem } = this.state;
-    console.log(this.state.kategori);
-    console.log(this.state.dataItem);
-    console.log(this.state.branch);
+
     if (this.state.modal == false) {
       return (
         <div>

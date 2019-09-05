@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import Swal from "sweetalert2";
 
 import Axios from "axios";
 
@@ -11,11 +11,21 @@ class detail extends React.Component {
   };
 
   deleteItem = () => {
-    // await this.props.dispatch(deleteDetail(this.props.data.id));
-    Axios.delete(`http://localhost:8080/store/${this.props.data.id}`);
-    // console.log("ASJDKAJSHDKJAHSDKJAD");
-
-    // console.log(window.history.back(-1));
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(result => {
+      if (result.value) {
+        Swal.fire("Deleted!", "Your data has been deleted.", "success");
+        Axios.delete(`http://localhost:8080/store/${this.props.data.id}`);
+        window.location.href = `http://localhost:3000/`;
+      }
+    });
   };
 
   render() {
@@ -44,14 +54,14 @@ class detail extends React.Component {
                 <h2>{this.props.data.name}</h2>
               </div>
               <div className="col-md-6 text-right mt-2">
-                <Link to={`/`}>
-                  <button
-                    class="badge badge-danger ml-2"
-                    onClick={this.deleteItem}
-                  >
-                    Delete
-                  </button>
-                </Link>
+                {/* <Link to={`/`}> */}
+                <button
+                  class="badge badge-danger ml-2"
+                  onClick={this.deleteItem}
+                >
+                  Delete
+                </button>
+                {/* </Link> */}
               </div>
             </div>
             {/**************************************** BAGIAN DETAIL ***********************************/}

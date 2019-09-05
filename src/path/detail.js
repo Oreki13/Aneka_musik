@@ -42,7 +42,6 @@ class detail extends Component {
 
   render() {
     const { detail } = this.state;
-    console.log(this.state);
 
     if (this.state.modal == false) {
       return (

@@ -77,8 +77,11 @@ class search extends React.Component {
             })}
           </div>
         ) : (
-          <div className="content">
-            <h1>Oops, no items in this category yet.</h1>
+          <div className="container mt-4">
+            <div className="alert alert-danger" role="alert">
+              <h4 className="alert-heading">Data Not Found!!</h4>
+              <p>Aww yeah, data gak ketemu!!</p>
+            </div>
           </div>
         )}
         <Footer />

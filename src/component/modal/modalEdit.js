@@ -68,11 +68,8 @@ class modalAdd extends Component {
   render() {
     const kategori = this.props.dataEdit.kategori.result;
     const branch = this.props.dataEdit.branch.result;
-    console.log(kategori);
-    console.log(branch);
+
     const isdetail = { ...this.props.dataEdit.detail.result };
-    console.log(isdetail[0]);
-    console.log(this.state);
 
     return (
       <div

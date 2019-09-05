@@ -52,9 +52,6 @@ class modalAdd extends Component {
   render() {
     const kategori = this.props.dataPro.kategori.result;
     const branch = this.props.dataPro.branch.result;
-    console.log(kategori);
-    console.log(branch);
-    console.log(this.state);
 
     return (
       <div

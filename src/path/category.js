@@ -35,15 +35,7 @@ class category extends Component {
 
   render() {
     const { dataCategory } = this.state;
-    console.log(this.state.tmpSearch);
-    // console.log(this.props.data.dataList.result);
-
-    // const time = setTimeout(function() {
-    //   <div className="alert alert-danger" role="alert">
-    //     <h4 className="alert-heading">Data Not Found!!</h4>
-    //     <p>Aww yeah, data gak ketemu!!</p>
-    //   </div>;
-    // }, 3000);
+    
     return (
       <div>
         <Navbar />
