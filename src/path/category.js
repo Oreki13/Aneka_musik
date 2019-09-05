@@ -45,7 +45,7 @@ class category extends Component {
     //   </div>;
     // }, 3000);
     return (
-      <button>
+      <div>
         <Navbar />
         {/*********** Begin Search ************/}
         <div className="container mt-2 d-flex ">
@@ -68,7 +68,7 @@ class category extends Component {
           </div>
         </div>
         {/******************************* TOMBOL ADD ********************************/}
-        <button className="container">
+        <div className="container">
           <button
             style={{ background: "#e28935", borderRadius: "10px" }}
             type="button"
@@ -78,7 +78,7 @@ class category extends Component {
           >
             Add Category
           </button>
-        </button>
+        </div>
         {/******************* Begin Content ****************************/}
 
         {dataCategory.length === 0 ? (
@@ -89,7 +89,7 @@ class category extends Component {
             </div>
           </div>
         ) : (
-          <div className="container mt-4 d-flex flex-wrap">
+          <div className="container mt-4 mb-5 d-flex flex-wrap">
             {dataCategory.result.map((category, index) => {
               return <Content name={category.name} img={category.img} />;
             })}
@@ -98,7 +98,7 @@ class category extends Component {
         {/*********************** End Content *************************/}
         <Footer />
         <Modal />
-      </button>
+      </div>
     );
   }
 }
