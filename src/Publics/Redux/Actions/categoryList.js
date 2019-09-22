@@ -1,4 +1,5 @@
 import Axios from "axios";
+Axios.defaults.headers.common["authorization"] = "soul";
 
 export const getCategory = () => {
   return {

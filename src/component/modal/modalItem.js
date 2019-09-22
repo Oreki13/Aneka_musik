@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { postItem } from "../../Publics/Redux/Actions/postItem";
+import { connect } from "react-redux";
+import { Modal, Button, Form, Row, Col } from "react-bootstrap";
+import { postItem } from "../../Publics/Redux/Actions/prodacts";
 class modalAdd extends Component {
   state = {
     name: "",
@@ -46,158 +48,135 @@ class modalAdd extends Component {
     this.setState({ detail: type });
   };
   input = () => {
-    this.props.dispatch(postItem(this.state));
+    this.props.dispatch(postItem(this.state)).then(() => {
+      window.location.reload();
+    });
   };
 
   render() {
-    const kategori = this.props.dataPro.kategori.result;
-    const branch = this.props.dataPro.branch.result;
+    // const kategori = this.props.dataPro.kategori.result;
+    // const branch = this.props.dataPro.branch.result;
+    console.log(this.state);
 
     return (
-      <div
-        className="modal fade"
-        id="addItem"
-        tabIndex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="false"
+      <Modal
+        show={this.props.status}
+        onHide={this.props.modalClose}
+        animation={true}
       >
-        <div className="modal-dialog modal-lg" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Add Item</h5>
-              <button
-                type="button"
-                className="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <form onSubmit={this.input}>
-              <div className="modal-body">
-                <div className="form-group row">
-                  <label htmlFor="name" className="col-sm-3 col-form-label">
-                    Product Name
-                  </label>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Data</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group as={Row} controlId="formHorizontalEmail">
+              <Form.Label column sm={4}>
+                Prodact Name
+              </Form.Label>
+              <Col sm={8}>
+                <Form.Control
+                  type="text"
+                  placeholder="prodact Name"
+                  onChange={this.isiName}
+                />
+              </Col>
+            </Form.Group>
 
-                  <div className="col-sm-9">
-                    <input
-                      required={true}
-                      onChange={this.isiName}
-                      type="text"
-                      className="form-control"
-                      id="name"
-                    />
-                  </div>
-                </div>
+            <Form.Group as={Row} controlId="formHorizontalEmail">
+              <Form.Label column sm={4}>
+                Category
+              </Form.Label>
+              <Col sm={6}>
+                <Form.Control as="select" onChange={this.isiCategory}>
+                  {this.props.categoryData.map(category => (
+                    <option value={category.id_kategori}>
+                      {category.name}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Col>
+            </Form.Group>
 
-                <div className="form-group row">
-                  <label htmlFor="img" className="col-sm-3 col-form-label">
-                    Category
-                  </label>
-                  <div className="col-sm-6">
-                    <select
-                      className="form-control"
-                      onChange={this.isiCategory}
-                    >
-                      {kategori.map(ket => {
-                        return (
-                          <option value={ket.id_kategori}>{ket.name}</option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                </div>
+            <Form.Group as={Row} controlId="formHorizontalEmail">
+              <Form.Label column sm={4}>
+                Branch
+              </Form.Label>
+              <Col sm={6}>
+                <Form.Control as="select" onChange={this.isiBranch}>
+                  {this.props.branchData.map(branch => (
+                    <option value={branch.id}>{branch.name}</option>
+                  ))}
+                </Form.Control>
+              </Col>
+            </Form.Group>
 
-                <div className="form-group row">
-                  <label htmlFor="img" className="col-sm-3 col-form-label">
-                    Branch
-                  </label>
-                  <div className="col-sm-6">
-                    <select className="form-control" onChange={this.isiBranch}>
-                      {branch.map(ket => {
-                        return <option value={ket.id}>{ket.name}</option>;
-                      })}
-                    </select>
-                  </div>
-                </div>
+            <Form.Group as={Row} controlId="formHorizontalEmail">
+              <Form.Label column sm={4}>
+                Qty
+              </Form.Label>
+              <Col sm={8}>
+                <Form.Control
+                  type="text"
+                  placeholder="Qty"
+                  onChange={this.isiQty}
+                />
+              </Col>
+            </Form.Group>
 
-                <div className="form-group row">
-                  <label htmlFor="name" className="col-sm-3 col-form-label">
-                    Qty
-                  </label>
-                  <div className="col-sm-9">
-                    <input
-                      required={true}
-                      onChange={this.isiQty}
-                      type="text"
-                      className="form-control"
-                      id="name"
-                    />
-                  </div>
-                </div>
+            <Form.Group as={Row} controlId="formHorizontalEmail">
+              <Form.Label column sm={4}>
+                Price
+              </Form.Label>
+              <Col sm={8}>
+                <Form.Control
+                  type="text"
+                  placeholder="Price"
+                  onChange={this.isiPrice}
+                />
+              </Col>
+            </Form.Group>
 
-                <div className="form-group row">
-                  <label htmlFor="name" className="col-sm-3 col-form-label">
-                    Price
-                  </label>
-                  <div className="col-sm-9">
-                    <input
-                      required={true}
-                      onChange={this.isiPrice}
-                      type="text"
-                      className="form-control"
-                      id="name"
-                    />
-                  </div>
-                </div>
+            <Form.Group as={Row} controlId="formHorizontalEmail">
+              <Form.Label column sm={4}>
+                Image
+              </Form.Label>
+              <Col sm={8}>
+                <Form.Control
+                  type="text"
+                  placeholder="Image"
+                  onChange={this.isiImg}
+                />
+              </Col>
+            </Form.Group>
 
-                <div className="form-group row">
-                  <label htmlFor="name" className="col-sm-3 col-form-label">
-                    Image
-                  </label>
-                  <div className="col-sm-9">
-                    <input
-                      required={true}
-                      onChange={this.isiImg}
-                      type="text"
-                      className="form-control"
-                      id="name"
-                    />
-                  </div>
-                </div>
-
-                <div className="form-group row">
-                  <label htmlFor="name" className="col-sm-3 col-form-label">
-                    Description
-                  </label>
-                  <div className="col-sm-9">
-                    <textarea
-                      onChange={this.isiDescription}
-                      className="form-control"
-                      id="exampleFormControlTextarea1"
-                      rows="3"
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
-              <div className="modal-footer">
-                <button
-                  style={{ background: "#e28935" }}
-                  type="submit"
-                  className="btn btn-primary"
-                >
-                  Add
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+            <Form.Group as={Row} controlId="formHorizontalEmail">
+              <Form.Label column sm={4}>
+                Description
+              </Form.Label>
+              <Col sm={8}>
+                <Form.Control
+                  as="textarea"
+                  type="text"
+                  placeholder="Description"
+                  onChange={this.isiDescription}
+                />
+              </Col>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button style={{ background: "#e28935" }} onClick={this.input}>
+            Add
+          </Button>
+        </Modal.Footer>
+      </Modal>
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    item: state.prodacts.itemList
+  };
+};
 
-export default modalAdd;
+export default connect(mapStateToProps)(modalAdd);

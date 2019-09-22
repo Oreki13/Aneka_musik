@@ -1,35 +1,37 @@
 const initialState = {
-  deleteItem: [],
+  branch: [],
   isLoading: false,
   isFulfielled: false,
   isRejected: false
 };
 
-const deleteItem = (state = initialState, action) => {
+const dropdown = (state = initialState, action) => {
+  // console.log(action);
+
   switch (action.type) {
-    case "GET_DETAIL_PENDING":
+    case "GET_BRANCH_PENDING":
       return {
         ...state,
         isLoading: true,
         isRejected: false,
         isFulfielled: false
       };
-    case "GET_DETAIL_REJECTED":
+    case "GET_BRANCH_REJECTED":
       return {
         ...state,
         isLoading: false,
         isRejected: true
       };
-    case "GET_DETAIL_FULFILLED":
+    case "GET_BRANCH_FULFILLED":
       return {
         ...state,
         isLoading: false,
         isFulfielled: true,
-        deleteItem: action.payload.data
+        branch: action.payload.data
       };
+
     default:
       return state;
   }
 };
-
-export default deleteItem;
+export default dropdown;

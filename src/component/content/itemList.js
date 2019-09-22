@@ -5,7 +5,12 @@ const item = props => {
   return (
     <div
       className="card mb-3 mr-4 shadow "
-      style={{ maxWidth: "320px", borderRadius: "30px", background: "#F5D372" }}
+      style={{
+        maxWidth: "320px",
+        minWidth: "320px",
+        borderRadius: "30px",
+        background: "#F5D372"
+      }}
     >
       <div className="row no-gutters">
         <div className="col-md-5">

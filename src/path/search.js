@@ -1,7 +1,7 @@
 import React from "react";
 
 import { connect } from "react-redux";
-import { getName } from "../Publics/Redux/Actions/itemList";
+import { getName } from "../Publics/Redux/Actions/prodacts";
 import Content from "../component/content/itemList";
 import Navbar from "../component/navbar/navbar";
 import Footer from "../component/footer/footer";
@@ -20,7 +20,7 @@ class search extends React.Component {
   componentDidMount = async () => {
     await this.props.dispatch(getName(this.state.param));
     this.setState({
-      item: this.props.data.dataSearch.result
+      item: this.props.data.result
     });
   };
 
@@ -38,7 +38,7 @@ class search extends React.Component {
   };
 
   render() {
-    console.log(this.props.match);
+    console.log(this.state);
 
     return (
       <div>
@@ -63,7 +63,7 @@ class search extends React.Component {
             </a>
           </div>
         </div>
-        {/**************************** BEGIN CONTENT ****************************/}
+        {/* *************************** BEGIN CONTENT ****************************/}
         {this.state.item.length !== 0 ? (
           <div className="container mt-4 d-flex flex-wrap">
             {this.state.item.map((category, index) => {
@@ -92,7 +92,7 @@ class search extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    data: state.dataList
+    data: state.prodacts.itemList
   };
 };
 
