@@ -5,7 +5,7 @@ export const getWhislist = id => {
   return {
     type: "GET_WHISLIST",
     payload: Axios.get(
-      `http://localhost:8080/whislist/${id}
+      `https://musikapp13.herokuapp.com/whislist/${id}
     `
     )
   };
@@ -15,7 +15,7 @@ export const postWhislist = (id, id_item) => {
   return {
     type: "POST_WHISLIST",
     payload: Axios.post(
-      `http://localhost:8080/whislist/${id}/${id_item}
+      `https://musikapp13.herokuapp.com/whislist/${id}/${id_item}
       `
     )
   };
@@ -25,7 +25,7 @@ export const deleteWhislist = (id, id_item) => {
   return {
     type: "DELETE_WHISLIST",
     payload: Axios.delete(
-      `http://localhost:8080/whislist/${id}/${id_item}
+      `https://musikapp13.herokuapp.com/whislist/${id}/${id_item}
       `
     )
   };
